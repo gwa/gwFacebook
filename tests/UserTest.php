@@ -12,8 +12,10 @@ class UserTest extends PHPUnit_Framework_TestCase
 
     static public function setUpBeforeClass()
     {
-        $dir = new gwDirectory(__DIR__ . '/images');
-        $dir->emptyDirectory();
+        if (is_dir(__DIR__ . '/images/fb')) {
+            $dir = new gwDirectory(__DIR__ . '/images/fb');
+            $dir->delete();
+        }
     }
 
     public function testCanBeConstructed()
@@ -35,21 +37,21 @@ class UserTest extends PHPUnit_Framework_TestCase
     {
         $user = new User(self::APP_ID, self::APP_SECRET);
         $user->savePictureLocally(
-            __DIR__ . '/images',
+            __DIR__ . '/images/fb',
             '562803288'
         );
-        $this->assertTrue(file_exists(__DIR__ . '/images/562803288.jpg'));
+        $this->assertTrue(file_exists(__DIR__ . '/images/fb/562803288.jpg'));
 
         $user->savePictureLocally(
-            __DIR__ . '/images',
+            __DIR__ . '/images/fb',
             '562803288',
             'large',
             '562803288_large'
         );
-        $this->assertTrue(file_exists(__DIR__ . '/images/562803288_large.jpg'));
+        $this->assertTrue(file_exists(__DIR__ . '/images/fb/562803288_large.jpg'));
 
         $user->setAccessToken(self::ACCESS_TOKEN);
-        $user->savePictureLocally(__DIR__ . '/images');
-        $this->assertTrue(file_exists(__DIR__ . '/images/' . self::TEST_USER_ID . '.jpg'));
+        $user->savePictureLocally(__DIR__ . '/images/fb');
+        $this->assertTrue(file_exists(__DIR__ . '/images/fb/' . self::TEST_USER_ID . '.jpg'));
     }
 }

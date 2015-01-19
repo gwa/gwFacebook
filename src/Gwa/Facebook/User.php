@@ -91,7 +91,7 @@ class User
      * @param  string|null   $version
      * @return Facebook\FacebookRequest
      */
-    public function createRequest( $path, $method = 'get', $params = null, $version = null )
+    public function createRequest( $path, $method = 'GET', $params = null, $version = null )
     {
         return new FacebookRequest(
             $this->_session,
